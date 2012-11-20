@@ -40,6 +40,7 @@ class SVDMatrix < Matrix
     @rows.each {|row| input_array += row}
 
     puts "SVDMatrix\tDecomposing"
+    puts "Just tetsting to see if this is really being built / used"
     u_array, w_array, v_array = SVD.decompose(input_array, row_size, column_size)
     
     # recompose U matrix

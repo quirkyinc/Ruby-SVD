@@ -22,7 +22,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 
 	rv1=vector(1,n);
 	g=scale=anorm=0.0;
-  fprintf(stderr, "svd.h\tfirst for\n");
+  printf("svd.h\tfirst for\n");
 	for (i=1;i<=n;i++) {
 		l=i+1;
 		rv1[i]=scale*g;
@@ -69,40 +69,40 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 		}
 		anorm=FMAX(anorm,(fabs(w[i])+fabs(rv1[i])));
 	}
-  fprintf(stderr, "svd.h\tsecond for\n");
+  printf("svd.h\tsecond for\n");
 	for (i=n;i>=1;i--) {
 		if (i < n) {
-      fprintf(stderr, "i[%d] < n[%d]\n", i, n);
+      printf("i[%d] < n[%d]\n", i, n);
 			if (g) {
 				for (j=l;j<=n;j++) {
-          fprintf(stderr, "loop2.1 j[%d]\n", j);
+          printf("loop2.1 j[%d]\n", j);
 					v[j][i]=(a[i][j]/a[i][l])/g;
         }
 				for (j=l;j<=n;j++) {
-          fprintf(stderr, "loop2.2 j[%d]\n", j);
+          printf("loop2.2 j[%d]\n", j);
 					for (s=0.0,k=l;k<=n;k++) {
-            fprintf(stderr, "loop2.2.1 k[%d]\n", k);
+            printf("loop2.2.1 k[%d]\n", k);
             s += a[i][k]*v[k][j];
           }
 					for (k=l;k<=n;k++) {
-            fprintf(stderr, "loop2.2.2 k[%d]\n", k);
+            printf("loop2.2.2 k[%d]\n", k);
             v[k][j] += s*v[k][i];
           }
 				}
 			}
 			for (j=l;j<=n;j++) {
-        fprintf(stderr, "loop 2.3 j[%d]\n", j);
+        printf("loop 2.3 j[%d]\n", j);
         v[i][j]=v[j][i]=0.0;
       }
 		}
-    fprintf(stderr, "loop2 before v\n");
+    printf("loop2 before v\n");
 		v[i][i]=1.0;
-    fprintf(stderr, "loop2 before g\n");
+    printf("loop2 before g\n");
 		g=rv1[i];
-    fprintf(stderr, "loop2 before l\n");
+    printf("loop2 before l\n");
 		l=i;
 	}
-  fprintf(stderr, "svd.h\tthird for\n");
+  printf("svd.h\tthird for\n");
 	for (i=IMIN(m,n);i>=1;i--) {
 		l=i+1;
 		g=w[i];
@@ -118,7 +118,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 		} else for (j=i;j<=m;j++) a[j][i]=0.0;
 		++a[i][i];
 	}
-  fprintf(stderr, "svd.h\tfourth for\n");
+  printf("svd.h\tfourth for\n");
 	for (k=n;k>=1;k--) {
 		for (its=1;its<=30;its++) {
 			flag=1;
@@ -212,3 +212,4 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 	}
 	free_vector(rv1,1,n);
 }
+
