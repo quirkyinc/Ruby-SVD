@@ -15,6 +15,8 @@ class LSA
   # and all the clusters (columns) used in the original matrix.
   # Returns a sorted list of indexes and distances,
   def classify_vector(values)
+    puts "LSA\tClassifying vector #{values}"
+
     raise "Unsupported vector length" unless values.size == @u.row_size || values.size == @v.row_size
     vector = Matrix.row_vector(values)
     mult_matrix = (values.size == @u.row_size ? @u : @v)
@@ -25,6 +27,7 @@ class LSA
     y = position[0,1]
     results = []
     
+    puts "LSA\tDetermining Similarities#{values}"
     comp_matrix.row_size.times do |index|
       results << [index, cosine_similarity(x, y, comp_matrix[index, 0], comp_matrix[index, 1])]
     end

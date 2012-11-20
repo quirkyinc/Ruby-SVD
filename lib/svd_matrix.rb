@@ -38,22 +38,28 @@ class SVDMatrix < Matrix
   def decompose(reduce_dimensions_to = nil)
     input_array = []
     @rows.each {|row| input_array += row}
+
+    puts "SVDMatrix\tDecomposing"
     u_array, w_array, v_array = SVD.decompose(input_array, row_size, column_size)
     
     # recompose U matrix
+    puts "SVDMatrix\tRecomposing U"
     u = SVDMatrix.new(row_size, reduce_dimensions_to || column_size)
     row_size.times {|i| u.set_row(i, u_array.slice!(0, column_size)[0...(reduce_dimensions_to || column_size)])}
     
     # recompose V matrix
+    puts "SVDMatrix\tRecomposing V"
     v = SVDMatrix.new(column_size, reduce_dimensions_to || column_size)
     column_size.times {|i| v.set_row(i, v_array.slice!(0, column_size)[0...(reduce_dimensions_to || column_size)])}
     
     # diagonalise W array as a matrix
+    puts "SVDMatrix\tDiagonalizing W"
     if reduce_dimensions_to
       w_array = w_array[0...reduce_dimensions_to]
     end
     w = Matrix.diagonal(*w_array)
     
+    puts "SVDMatrix\tReturning UWV array"
     [u, w, v]
   end
   

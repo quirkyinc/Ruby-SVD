@@ -17,6 +17,8 @@ VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
 	VALUE v_output = rb_ary_new();
 	VALUE w_output = rb_ary_new();
 	VALUE output = rb_ary_new();
+
+  printf("svd.c\tdecompose");
 	
 	/* precondition */
 	if((m*n) != RARRAY_LEN(matrix_ruby)) {
@@ -25,6 +27,7 @@ VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
 	}
 	
 	/* convert to u matrix */
+  printf("svd.c\tconvert to u matrix");
 	for(i = 1; i <= m; i++) {
 		for(j = 1; j <= n; j++) {
 			offset = ((i-1)*n) + (j-1);
@@ -33,13 +36,16 @@ VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
 	}
 
 	/* perform SVD */
+  printf("svd.c\tperform SVD");
 	svdcmp(u, m, n, w, v);
 	
 	/* create w output array */
+  printf("svd.c\tcreate w output array");
 	for(i = 1; i <= n; i++)
 		rb_ary_push(w_output, rb_float_new(w[i]));
 	
 	/* create u arrays */
+  printf("svd.c\tcreate u arrays");
 	for(i = 1; i <= m; i++) {
 		for(j = 1; j <= n; j++) {
 			rb_ary_push(u_output, rb_float_new(u[i][j]));
@@ -47,6 +53,7 @@ VALUE decompose(VALUE module, VALUE matrix_ruby, VALUE m_ruby, VALUE n_ruby) {
 	}
 	
 	/* create v arrays */
+  printf("svd.c\tcreate v arrays");
 	for(i = 1; i <= n; i++) {
 		for(j = 1; j <= n; j++) {
 			rb_ary_push(v_output, rb_float_new(v[i][j]));

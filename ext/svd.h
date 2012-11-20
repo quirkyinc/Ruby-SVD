@@ -22,6 +22,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 
 	rv1=vector(1,n);
 	g=scale=anorm=0.0;
+  printf("svd.h\tfirst for");
 	for (i=1;i<=n;i++) {
 		l=i+1;
 		rv1[i]=scale*g;
@@ -68,6 +69,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 		}
 		anorm=FMAX(anorm,(fabs(w[i])+fabs(rv1[i])));
 	}
+  printf("svd.h\tsecond for");
 	for (i=n;i>=1;i--) {
 		if (i < n) {
 			if (g) {
@@ -84,6 +86,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 		g=rv1[i];
 		l=i;
 	}
+  printf("svd.h\tthird for");
 	for (i=IMIN(m,n);i>=1;i--) {
 		l=i+1;
 		g=w[i];
@@ -99,6 +102,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
 		} else for (j=i;j<=m;j++) a[j][i]=0.0;
 		++a[i][i];
 	}
+  printf("svd.h\tfourth for");
 	for (k=n;k>=1;k--) {
 		for (its=1;its<=30;its++) {
 			flag=1;
