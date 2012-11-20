@@ -72,7 +72,7 @@ void svdcmp(float **a, int m, int n, float w[], float **v)
   printf("svd.h\tsecond for\n");
 	for (i=n;i>=1;i--) {
 		if (i < n) {
-      printf("i[%d] < n[%d]\n", i, n);
+      printf("i[%d]\n", i);
 			if (g) {
 				for (j=l;j<=n;j++) {
           printf("loop2.1 j[%d]\n", j);
